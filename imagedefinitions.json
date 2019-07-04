@@ -1,1 +1,6 @@
-
+[
+  {
+    "name": "nodeapp",
+    "imageUri": "077708451457.dkr.ecr.ap-south-1.amazonaws.com/node-app:build-15533049-98a3-49dd-b682-473ad244c244"
+  }
+]
