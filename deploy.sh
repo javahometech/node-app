@@ -6,4 +6,4 @@ if [ $node_app=='nodeapp' ]; then
 	docker rm -f nodeapp
 fi
 
-docker run -d -p 8080:8080 --name $1
+docker run -d -p 8080:8080 --name nodeapp $1
