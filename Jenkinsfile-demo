@@ -1,8 +1,11 @@
 pipeline{
+agent any
  stages{
   stage("master"){
    when { branch 'master' }
-   echo "Deploy to Prod"
+   steps{
+    echo "Deploy to Prod"
+   }
   }
  }
 }
