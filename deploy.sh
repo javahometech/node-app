@@ -1,5 +1,6 @@
 #!/bin/bash
 
+# This is to demo
 
 node_app=`docker ps -a | grep nodeapp | awk '{print $NF}'`
 if [ $node_app=='nodeapp' ]; then
