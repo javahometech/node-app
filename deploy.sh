@@ -2,7 +2,7 @@
 
 # This is to demo
 
-# Multi branch demo
+# Multi branch demo again
 node_app=`docker ps -a | grep nodeapp | awk '{print $NF}'`
 if [ $node_app=='nodeapp' ]; then
     echo "nodeapp is running, lets delete"
