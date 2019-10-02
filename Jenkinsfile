@@ -18,9 +18,9 @@ pipeline {
                     script{
                         def tag = latestCommitHash()
                         sh """
-                            sh "docker push kammana/nodeapp:${tag}"
-                            sh "chmod +x changeTag.sh"
-                            sh "./changeTag.sh ${tag}"
+                            docker push kammana/nodeapp:${tag}
+                            chmod +x changeTag.sh
+                            ./changeTag.sh ${tag}
                         """
                     }
                 }
