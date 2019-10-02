@@ -5,7 +5,7 @@ pipeline {
             steps{
                 script{
                     def tag = latestCommitHash()
-                    sh "docker build -t kammana/nodeapp:${tag} ."
+                    sh "docker build . -t kammana/nodeapp:${tag} "
                 }
                 
             }
