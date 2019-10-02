@@ -17,8 +17,11 @@ pipeline {
                     sh "docker login -u kammana -p ${dockerHubPwd}"
                     script{
                         def tag = latestCommitHash()
-                        sh "docker push kammana/nodeapp:${tag}"
-                        sh "sed 's//tagVersion//${tag}//g' pods.yml > node-app-pod.yml"
+                        sh """
+                            sh "docker push kammana/nodeapp:${tag}"
+                            sh "chmod +x changeTag.sh"
+                            sh "./changeTag.sh ${tag}"
+                        """
                     }
                 }
             }
