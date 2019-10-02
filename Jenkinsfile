@@ -18,7 +18,7 @@ pipeline {
                     script{
                         def tag = latestCommitHash()
                         sh "docker push kammana/nodeapp:${tag}"
-                        sed 's/tagVersion/${tag}/g' pods.yml > node-app-pod.yml
+                        sh "sed 's/tagVersion/${tag}/g' pods.yml > node-app-pod.yml"
                     }
                 }
             }
