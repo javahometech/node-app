@@ -18,6 +18,7 @@ pipeline {
                     script{
                         def tag = latestCommitHash()
                         sh "docker push kammana/nodeapp:${tag}"
+                        sed 's/tagVersion/${tag}/g' pods.yml > node-app-pod.yml
                     }
                 }
             }
@@ -26,8 +27,9 @@ pipeline {
             steps{
                 sshagent(['kops-k8s']) {
                     sh """ 
-                       scp -o StrictHostKeyChecking=no services.yml pods.yml ec2-user@52.66.70.61:/home/ec2-user/
-                       ssh ec2-user@52.66.70.61 kubectl create -f pods.yml
+                        
+                       scp -o StrictHostKeyChecking=no services.yml node-app-pod.yml ec2-user@52.66.70.61:/home/ec2-user/
+                       ssh ec2-user@52.66.70.61 kubectl create -f node-app-pod.yml
                        ssh ec2-user@52.66.70.61 kubectl create -f services.yml
                     """
                 }
