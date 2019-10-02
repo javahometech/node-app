@@ -30,11 +30,16 @@ pipeline {
             steps{
                 sshagent(['kops-k8s']) {
                     sh """ 
-                        
                        scp -o StrictHostKeyChecking=no services.yml node-app-pod.yml ec2-user@52.66.70.61:/home/ec2-user/
-                       ssh ec2-user@52.66.70.61 kubectl create -f node-app-pod.yml
-                       ssh ec2-user@52.66.70.61 kubectl create -f services.yml
+                       
                     """
+                    script{
+                        try{
+                            sh "ssh ec2-user@52.66.70.61 kubectl apply -f ."
+                        }catch(error){
+                            sh "ssh ec2-user@52.66.70.61 kubectl create -f ."
+                        }
+                    }
                 }
             }
         }
