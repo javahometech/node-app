@@ -11,6 +11,17 @@ pipeline {
             }
 
         }
+        stage('Push DockerHub'){
+            steps{
+                withCredentials([string(credentialsId: 'docker-hub', variable: 'dockerHubPwd')]) {
+                    sh "docker login -u kammana -p ${dockerHubPwd}"
+                    script{
+                        def tag = latestCommitHash()
+                        sh "docker push kammana/nodeapp:${tag}"
+                    }
+                }
+            }
+        }
     }
 }
 
