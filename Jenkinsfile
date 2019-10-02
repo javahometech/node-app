@@ -22,6 +22,17 @@ pipeline {
                 }
             }
         }
+        stage('Deploy - Kubernetes'){
+            steps{
+                sshagent(['kops-k8s']) {
+                    sh """ 
+                       scp -o StrictHostKeyChecking=no service.yml pods.yml ec2-user@52.66.70.61:/home/ec2-user/
+                       ssh ec2-user@52.66.70.61 kubectl create -f pods.yml
+                       ssh ec2-user@52.66.70.61 kubectl create -f service.yml
+                    """
+                }
+            }
+        }
     }
 }
 
