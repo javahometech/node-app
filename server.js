@@ -9,7 +9,7 @@ const HOST = '0.0.0.0';
 // App
 const app = express();
 app.get('/', (req, res) => {
-  res.send('<h1 style="color:black;">Java Home App - Kubernetes - version-2!!</h1> \n');
+  res.send('<h1 style="color:red;">Java Home App - version-3!!</h1> \n');
 });
 
 app.listen(PORT, HOST);
