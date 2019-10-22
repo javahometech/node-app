@@ -19,7 +19,8 @@ pipeline {
         }
         stage('Deploy to Dev server'){
             steps{
-                sh "ansible-playbook docker-deploy.yml -e tag=${env.DOCKER_TAG}"
+                ansiblePlaybook extras: "tag=${env.DOCKER_TAG}", installation: 'ansible-2', playbook: 'docker-deploy.yml'
+                //sh "ansible-playbook docker-deploy.yml -e tag=${env.DOCKER_TAG}"
             }
         }
     }
