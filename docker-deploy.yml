@@ -1,0 +1,26 @@
+---
+
+- hosts: 172.31.12.137
+  become: True
+  tasks:
+    - name: install pip
+      yum:
+        name: python-pip
+        state: present
+    - name: install docker
+      yum:
+        name: docker
+        state: present
+    - name: start docker service
+      service:
+        name: docker
+        state: started
+        enabled: true
+    - name: install required packages
+      pip:
+        name: docker-py
+        state: present
+    - name: Create  container
+      docker_container:
+        name: nodeapp
+        image: kammana/node-app:{{tag}}
