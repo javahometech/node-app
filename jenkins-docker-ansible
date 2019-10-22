@@ -23,7 +23,6 @@ pipeline {
                                 credentialsId: 'slave-one', 
                                 playbook: 'ansible/docker-deploy.yml',
                                 inventory: 'ansible/dev.inventory'
-                //sh "ansible-playbook docker-deploy.yml -e tag=${env.DOCKER_TAG}"
             }
         }
     }
