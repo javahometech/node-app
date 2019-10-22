@@ -19,7 +19,10 @@ pipeline {
         }
         stage('Deploy to Dev server'){
             steps{
-                ansiblePlaybook extras: "-e tag=${env.DOCKER_TAG}", credentialsId: 'slave-one', playbook: 'docker-deploy.yml'
+                ansiblePlaybook extras: "-e tag=${env.DOCKER_TAG}", 
+                                credentialsId: 'slave-one', 
+                                playbook: 'ansible/docker-deploy.yml',
+                                inventory: 'ansible/dev.inventory'
                 //sh "ansible-playbook docker-deploy.yml -e tag=${env.DOCKER_TAG}"
             }
         }
