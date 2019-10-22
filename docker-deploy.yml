@@ -24,3 +24,4 @@
       docker_container:
         name: nodeapp
         image: kammana/node-app:{{tag}}
+        published_ports: [8080]
