@@ -2,34 +2,20 @@ pipeline {
     agent any
     environment{
         DOCKER_TAG = getDockerTag()
+        NEXUS_URL  = "172.31.34.232:8080"
+        IMAGE_URL_WITH_TAG = "${NEXUS_URL}/node-app:${DOCKER_TAG}"
     }
     stages{
         stage('Build Docker Image'){
             steps{
-                sh "docker build . -t kammana/nodeapp:${DOCKER_TAG} "
+                sh "docker build . -t ${IMAGE_URL_WITH_TAG}"
             }
         }
-        stage('DockerHub Push'){
+        stage('Nexus Push'){
             steps{
-                withCredentials([string(credentialsId: 'docker-hub', variable: 'dockerHubPwd')]) {
-                    sh "docker login -u kammana -p ${dockerHubPwd}"
-                    sh "docker push kammana/nodeapp:${DOCKER_TAG}"
-                }
-            }
-        }
-        stage('Deploy to k8s'){
-            steps{
-                sh "chmod +x changeTag.sh"
-                sh "./changeTag.sh ${DOCKER_TAG}"
-                sshagent(['kops-machine']) {
-                    sh "scp -o StrictHostKeyChecking=no services.yml node-app-pod.yml ec2-user@52.66.70.61:/home/ec2-user/"
-                    script{
-                        try{
-                            sh "ssh ec2-user@52.66.70.61 kubectl apply -f ."
-                        }catch(error){
-                            sh "ssh ec2-user@52.66.70.61 kubectl create -f ."
-                        }
-                    }
+                withCredentials([string(credentialsId: 'nexus-pwd', variable: 'nexusPwd')]) {
+                    sh "docker login -u admin -p ${nexusPwd}"
+                    sh "docker push ${IMAGE_URL_WITH_TAG}"
                 }
             }
         }
