@@ -1,7 +1,7 @@
 {
   "AWSEBDockerrunVersion": "1",
   "Image": {
-    "Name": "kammana/dibyoFargateContainer:v1",
+    "Name": "kammana/nodeapp:v1",
     "Update": "true"
   },
   "Ports": [
