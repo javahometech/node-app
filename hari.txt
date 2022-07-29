@@ -5,3 +5,4 @@ Hari is using Docker in his project
 It is likely to rain today
 Learning git diff command
 Learning git tags
+Learning branching strategies
