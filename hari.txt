@@ -7,4 +7,5 @@ Learning git diff command
 Learning git tags
 Learning branching strategies
 some chage
+Demo of git conflict
 This change is done by developer 2
