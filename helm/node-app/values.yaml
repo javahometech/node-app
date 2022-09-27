@@ -5,7 +5,7 @@
 replicaCount: 1
 
 image:
-  repository: kammana/nodeapp
+  repository: kammana/appone
   tag: v1
   pullPolicy: IfNotPresent
 
@@ -13,7 +13,7 @@ nameOverride: ""
 fullnameOverride: ""
 
 service:
-  type: ClusterIP
+  type: LoadBalancer
   port: 80
 
 ingress:
